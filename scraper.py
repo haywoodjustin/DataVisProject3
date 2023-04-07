@@ -139,9 +139,11 @@ onlyfiles = [f for f in listdir(data_path) if isfile(join(data_path, f))]
 episode_num_list = []
 for file in onlyfiles:
     if file.endswith('.txt'):
-        # file_path = data_path + "\\" + file
-        episode_num = int(file.split('episode')[1].split('.')[0])
-        episode_num_list.append(episode_num)
+        try:
+            episode_num = int(file.split('episode')[1].split('.')[0])
+            episode_num_list.append(episode_num)
+        except:
+            pass
 
 episode_num_list.sort()
 
@@ -157,11 +159,41 @@ for x in episode_num_list:
                 line = re.sub("[\(\[].*?[\)\]]", "", line)
                 if line.strip() and ('*' not in line and '(' not in line and ')' not in line and '[' not in line and ']' not in line and '{' not in line and'}' not in line):
                     o.write(line) 
+#CSV LOGIC
+header = ['episode_num', 'character', 'line']
+with open('data/data.csv', 'w', encoding='utf-8') as csvfile:
+    writer = csv.DictWriter(csvfile, fieldnames = header, lineterminator = '\n') 
+
+    writer.writeheader()
+
+    for episode in episode_num_list:
+        line_list = []
+        file_name_CLEAN = data_path + "\\episode" + str(episode) + '_CLEANED.txt'
+        with open(file_name_CLEAN, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+            for line in lines:
+                try:
+                    csv_dict = {}
+                    line = line.strip()
+                    character = line.split(':')
+                    if len(character) > 1:
+                        person = character[0]
+                        line = character[1].lstrip().rstrip()
+
+                        csv_dict['episode_num'] = episode
+                        csv_dict['character'] = person
+                        csv_dict['line'] = line
+
+                        line_list.append(csv_dict)
+            
+                except:
+                    pass
+
+            writer.writerows(line_list)
 
 
 
-# #CSV LOGIC
-# header = ['episode_name,' 'episode_num', 'character', 'line']
+
 
 # with open('data/data.csv', 'w') as csvfile:
 #     csvwriter = csv.writer(csvfile)
