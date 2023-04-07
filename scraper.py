@@ -1,5 +1,9 @@
 from bs4 import BeautifulSoup
+from os import listdir
+from os.path import isfile, join
 import requests as req
+import os
+import re
 import csv 
 
 
@@ -125,30 +129,42 @@ def get_transcripts_link(episode_master_list):
 
 episode_master_list = get_transcripts_link(episode_master_list)
 
-for each in episode_master_list:
-    if len(each) > 2:
-        print(each)
+
+#LOGIC TO GET PATH TO TEXT FILES
+current_directory = os.path.dirname(__file__)
+data_path = current_directory + "\\data"
+onlyfiles = [f for f in listdir(data_path) if isfile(join(data_path, f))]
+
+
+episode_num_list = []
+for file in onlyfiles:
+    if file.endswith('.txt'):
+        # file_path = data_path + "\\" + file
+        episode_num = int(file.split('episode')[1].split('.')[0])
+        episode_num_list.append(episode_num)
+
+episode_num_list.sort()
+
+
+            
+#LOOP THROUGH AND CLEAN TEXTFILES
+for x in episode_num_list:
+    file_name = data_path + "\\episode" + str(x) + '.txt'
+    file_name_CLEAN = data_path + "\\episode" + str(x) + '_CLEANED.txt'
+    with open(file_name, 'r', encoding='utf-8') as r, open(file_name_CLEAN, 'w', encoding='utf-8') as o:
+        for line in r:
+            if line.strip():
+                line = re.sub("[\(\[].*?[\)\]]", "", line)
+                if line.strip() and ('*' not in line and '(' not in line and ')' not in line and '[' not in line and ']' not in line and '{' not in line and'}' not in line):
+                    o.write(line) 
 
 
 
+# #CSV LOGIC
+# header = ['episode_name,' 'episode_num', 'character', 'line']
 
+# with open('data/data.csv', 'w') as csvfile:
+#     csvwriter = csv.writer(csvfile)
 
-# trans = [
-#     ["Entry", "Season", "Episode_Num", "Episode_Title", "Speaker", "Line"],
-# ]
-# entry = 1; 
+#     csvwriter.writerow(header)
 
-# episode_doc = req.get('https://rickandmorty.fandom.com/wiki/Pilot/Transcript')
-
-# if(episode_doc):
-#     S = BeautifulSoup(episode_doc.content , 'html.parser')
-#     # print(S.prettify())
-
-#     listOfBold =  S.find_all('div', class_='poem')
-#     print(listOfBold[0]) 
-#     # print(listOfBold)
-#     # for line in listOfBold:
-#     #     print(line)
-
-#     # print(trans) 
-        
