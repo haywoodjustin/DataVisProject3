@@ -1,6 +1,7 @@
 body {
     margin: 5px;
     padding: 0;
+    background: black;
 }
 
 /* Containers */
@@ -16,6 +17,7 @@ body {
     display: flex; 
     align-items: center;
     height: 20%; 
+    background-image: url("/CharacterImages/galaxy.jpg");
 }
 
 .bottom {
@@ -44,6 +46,7 @@ body {
     height: 100%;
     width: 100%; 
     vertical-align: middle;
+    background-image: url("CharacterImages/galaxy.jpg");
 }
 
 .character:hover {
