@@ -55,5 +55,5 @@ let characters = {
 }
 
 function loadCharacter(character){
-    console.log(characters[character]);  
+     
 }
