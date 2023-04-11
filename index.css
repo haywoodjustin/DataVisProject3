@@ -81,5 +81,6 @@ body {
 .name {
     text-align: center;
     margin: 5px; 
+    font-weight: bold;
 }
 
