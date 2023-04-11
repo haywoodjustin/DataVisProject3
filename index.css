@@ -1,5 +1,5 @@
 body {
-    margin: 0;
+    margin: 5px;
     padding: 0;
 }
 
@@ -7,7 +7,7 @@ body {
 .vis-container {
     display: flex; 
     flex-direction: column;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background-color: black;
 }
@@ -15,14 +15,14 @@ body {
 .top {
     display: flex; 
     align-items: center;
-    height: 20vh; 
+    height: 20%; 
 }
 
 .bottom {
     display: block;
     height: 90vh;
-    background-color: aqua;
-    border: solid green;
+    /* background-color: aqua; */
+    /* border: solid green; */
 }
   
 .bottom-row {
@@ -44,4 +44,9 @@ body {
     height: 100%;
     width: 100%; 
     vertical-align: middle;
+}
+
+.character:hover {
+    border: solid blue;
+    cursor: pointer;
 }
