@@ -1,6 +1,23 @@
 d3.csv("/data/data.csv")
     .then(_data =>{
         console.log(_data)
+
+    table = new Tabulator("#table", {
+        // height: 205,
+        responsiveLayout: true,  
+        data: this.data, 
+        layout:"fitColumns", //fit columns to width of table (optional)
+        columns:[ //Define Table Columns
+            {title:"Episode", field:"episode_num"},
+            {title:"Character", field:"character"},
+            {title:"Dialog", field:"line"},
+            // {title:"Discovery Year", field:"disc_year"},
+            // {title:"Star Type", field:"st_spectype"},
+            // {title:"Distance from Earth", field:"sy_dist"},
+            // {title:"Number of Stars", field:"sy_snum"},
+            // {title:"Habitability", field:"habitable"},
+        ],
+    });
 } )
 
 let characters = {
