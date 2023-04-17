@@ -48,6 +48,8 @@ body {
 }
 
 /* dashboard items */
+
+/* info card  */
 .info-card {
     width: 33%; 
     height: 300px; 
@@ -64,11 +66,19 @@ body {
 }
 
 .name-card{
-    /* width: 33%; */
+    border-radius: 5px; ;
+    margin-right: 5px; 
     height: 100%;
     display: inline-block; 
-    background: red;
+    background: lightgray;
     position: relative;
+}
+
+.char-stats {
+    background: lightgray;
+    height: 100%; 
+    width: 100%; 
+    border-radius: 5px; 
 }
 
 .name-card img{
@@ -83,4 +93,6 @@ body {
     margin: 5px; 
     font-weight: bold;
 }
+
+
 
