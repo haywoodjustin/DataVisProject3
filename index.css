@@ -81,6 +81,12 @@ body {
     border-radius: 5px; 
 }
 
+.stats-text-area {
+    height: 96%;
+    width: 96%;
+    margin: 5px; 
+}
+
 .name-card img{
     height: 90%;
     /* width: 57%;  */
