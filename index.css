@@ -51,7 +51,7 @@ body {
 
 /* info card  */
 .info-card {
-    width: 33%; 
+    width: 39%; 
     height: 300px; 
     border-radius: 5px;
     background: white;
@@ -79,6 +79,12 @@ body {
     height: 100%; 
     width: 100%; 
     border-radius: 5px; 
+}
+
+.stats-text-area {
+    height: 96%;
+    width: 96%;
+    margin: 5px; 
 }
 
 .name-card img{
