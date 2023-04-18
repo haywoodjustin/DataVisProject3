@@ -48,8 +48,10 @@ body {
 }
 
 /* dashboard items */
+
+/* info card  */
 .info-card {
-    width: 33%; 
+    width: 39%; 
     height: 300px; 
     border-radius: 5px;
     background: white;
@@ -64,11 +66,25 @@ body {
 }
 
 .name-card{
-    /* width: 33%; */
+    border-radius: 5px; ;
+    margin-right: 5px; 
     height: 100%;
     display: inline-block; 
-    background: red;
+    background: lightgray;
     position: relative;
+}
+
+.char-stats {
+    background: lightgray;
+    height: 100%; 
+    width: 100%; 
+    border-radius: 5px; 
+}
+
+.stats-text-area {
+    height: 96%;
+    width: 96%;
+    margin: 5px; 
 }
 
 .name-card img{
@@ -83,6 +99,26 @@ body {
     margin: 5px; 
     font-weight: bold;
 }
+
+/*line chart*/
+
+.axis path{
+    stroke:black;
+    stroke-width:2px ;
+}   
+
+.axis line{
+    stroke: black;
+    stroke-width: 1.5px;
+} 
+
+.axis text{
+    fill: black;
+    font-weight: bold;
+    font-size: 14px;
+    font-family:"Arial Black", Gadget, sans-serif;
+} 
+
 
 /*line chart*/
 
