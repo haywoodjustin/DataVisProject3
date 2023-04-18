@@ -11,12 +11,7 @@ d3.csv("/data/data.csv")
         columns:[ //Define Table Columns
             {title:"Episode", field:"episode_num"},
             {title:"Character", field:"character"},
-            {title:"Dialog", field:"line", formatter: "textarea"},
-            // {title:"Discovery Year", field:"disc_year"},
-            // {title:"Star Type", field:"st_spectype"},
-            // {title:"Distance from Earth", field:"sy_dist"},
-            // {title:"Number of Stars", field:"sy_snum"},
-            // {title:"Habitability", field:"habitable"},
+            {title:"Dialog", field:"line", formatter: "textarea"}
         ],
     });
 } )
