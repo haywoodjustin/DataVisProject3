@@ -1,7 +1,6 @@
-d3.csv("/data/data.csv")
-    .then(_data =>{
-        console.log(_data)
-} )
+import { get_char_stats } from "./js/data_wrangling.js"
+
+get_char_stats('Morty')
 
 let characters = {
         Rick: {

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +10,9 @@
 </head>
 <body>
     <script src="d3.v6.min.js"></script>
-    <script src="main.js"></script>
-
+    <script src="main.js", type = "module"></script>
+    
+    <script  src="js/require.js"></script>
     <div class="vis-container">
         <div class="characters">
             <div class="character" id="all" onClick="loadCharacter(id)">
@@ -35,8 +36,8 @@
             <div class="character" id="Jessica" onClick="loadCharacter(id)">
                 <img src="/CharacterImages/jessica.png" alt="Jessica">
             </div>
-            <div class="character" id="Spaceship" onClick="loadCharacter(id)">
-                <img src="/CharacterImages/spaceship.png" alt="Spaceship">
+            <div class="character" id="Principal" onClick="loadCharacter(id)">
+                <img src="/CharacterImages/principal_vag.png" alt="Principal">
             </div>
             <div class="character" id="Poopybutthole" onClick="loadCharacter(id)">
                 <img src="/CharacterImages/poopybutthole.png" alt="Mr. Poopybutthole">
@@ -66,6 +67,10 @@
                     </div>
                 </div>
                 
+            </div>
+
+            <div class = "linechart">
+                <svg id="linechart"></svg>
             </div>
         </div>
     </div>
