@@ -14,7 +14,15 @@ d3.csv("/data/data.csv")
             {title:"Dialog", field:"line", formatter: "textarea"}
         ],
     });
-} )
+ 
+
+
+    word_cloud = new Wordcloud({
+        parentElement: '#word_cloud',
+        containerHeight: 300,
+        containerWidth: 466.83
+    }, _data, "day", "Day of Week", "Total Calls", "Amount of Calls Per Day");
+})
 
 let characters = {
         Rick: {
