@@ -1,7 +1,82 @@
+const NUM_EPISODES = 52;
+function get_char_stats(data, char_name)
+{
+    
+    let total_ep = 0;
+    let total_lines = 0;
+    let total_seasons = 0;
+    let lines_by_ep = {};
+    
+    let episode_counter, season_counter =0;
 
+        data.forEach(d => {
+           if(d.character == char_name)
+           {
+            //console.log(d)
+            total_lines+=1;
+          
+            if(season_counter != d.season)
+            {
+                total_seasons +=1;
+                season_counter = d.season;
+            }
+
+            if(episode_counter != d.episode_num)
+            {
+                total_ep +=1;
+                episode_counter = d.episode_num;
+                lines_by_ep[d.episode_num] =1;
+            }
+
+            else
+            {
+                lines_by_ep[d.episode_num]+=1
+            }
+           }
+        });
+
+        let char_stats = {
+            total_ep: total_ep,
+            total_lines: total_lines,
+            total_seasons: total_seasons,
+            lines_by_ep: lines_by_ep
+        }
+        console.log(char_stats)
+        return char_stats
+
+
+}
+
+function get_linechart_data(stats)
+{
+    let line_chart_data= [];
+
+    for(let i = 0; i <NUM_EPISODES; i++)
+    {
+        let temp = Object();
+
+        temp.x = i;
+        if(stats.lines_by_ep[i]==undefined)
+        {
+            temp.y = 0;
+        }
+        else
+        {
+            temp.y = stats.lines_by_ep[i];
+        }
+
+        line_chart_data.push(temp);
+    }
+console.log(line_chart_data);
+}
+
+let data, linechart; 
+let morty_stats, summer_stats, jerry_stats, beth_stats, rick_stats, jessica_stats, principal_stats, poopybutthole_stats, 
+    goldenfold_stats, squanchy_stats, birdperson_stats, tammy_stats;
 
 d3.csv("/data/data.csv")
     .then(_data =>{
+        data = _data;
         console.log(_data)
 
     table = new Tabulator("#table", {
@@ -13,15 +88,34 @@ d3.csv("/data/data.csv")
         columns:[ //Define Table Columns
             {title:"Episode", field:"episode_num"},
             {title:"Character", field:"character"},
-            {title:"Dialog", field:"line", formatter: "textarea"},
-            // {title:"Discovery Year", field:"disc_year"},
-            // {title:"Star Type", field:"st_spectype"},
-            // {title:"Distance from Earth", field:"sy_dist"},
-            // {title:"Number of Stars", field:"sy_snum"},
-            // {title:"Habitability", field:"habitable"},
+            {title:"Dialog", field:"line", formatter: "textarea"}
         ],
     });
-} )
+ 
+
+
+    word_cloud = new Wordcloud({
+        parentElement: '#word_cloud',
+        containerHeight: 300,
+        containerWidth: 466.83
+    }, _data, "day", "Day of Week", "Total Calls", "Amount of Calls Per Day");
+
+    linechart = new LineCha
+    morty_stats = get_char_stats(data,"Morty");
+    summer_stats = get_char_stats(data, "Summer");
+    jerry_stats = get_char_stats(data, "Jerry");
+    beth_stats = get_char_stats(data, "Beth");
+    rick_stats = get_char_stats(data, "Rick");
+    jessica_stats = get_char_stats(data, "Jessica");
+    principal_stats = get_char_stats(data, "Principal Vagina");
+    poopybutthole_stats = get_char_stats(data, "Mr.Poopybutthole")
+    goldenfold_stats = get_char_stats(data, "Mr. Goldenfold");
+    squanchy_stats = get_char_stats(data, "Squanchy");
+    birdperson_stats = get_char_stats(data, "Birdperson");
+    tammy_stats = get_char_stats(data, "Tammy");
+
+    console.log(get_linechart_data(squanchy_stats));
+})
 
 let characters = {
         Rick: {

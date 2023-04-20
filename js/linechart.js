@@ -60,6 +60,30 @@ class LineChart{
 updateVis()
 {
     let vis = this;
-    vis.xValue=d => d.
+    vis.xValue=d => d.x;
+    vix.yValue=d=>d.y;
+
+    vis.line = d3.line()
+        .x(d=>vis.xScale(vis.xValue(d)))
+        .y(d => vis.yScale(vis.yValue(d)));
+
+    vis.xScale.domain(d3.extent(vis.data,vis.xValue));
+    vis.yScale.domain(d3.extent(vis.data, vis.yValue));
+
+    vis.renderVis();
+}
+
+renderVis(){
+    let vis = this;
+
+    //I think this is where line is customized?
+    vis.marks.selectAll('.chart-line')
+        .data([vis.data])
+    .join('path')
+        .attr('class', 'chart-line')
+        .attr('d', vis.line);
+
+        vis.xAxisG.call(vis.xAxis);
+        vis.yAxisG.call(vis.yAxis);
 }
 }
