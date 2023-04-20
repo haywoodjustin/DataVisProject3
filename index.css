@@ -122,7 +122,12 @@ body {
 
 /*line chart*/
 
-.axis path{
+.linechart {
+    
+    background: white;
+    display: flex;
+}
+/* .axis path{
     stroke:black;
     stroke-width:2px ;
 }   
@@ -137,13 +142,13 @@ body {
     font-weight: bold;
     font-size: 14px;
     font-family:"Arial Black", Gadget, sans-serif;
-} 
+}  */
 
 
 /*line chart*/
 .axis line {
     fill: none;
-    stroke: #8693a0;
+    stroke: #c40e0e;
     shape-rendering: crispEdges;
   }
   .axis text {

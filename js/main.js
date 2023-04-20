@@ -42,9 +42,8 @@ function get_char_stats(data, char_name)
             lines_by_ep: lines_by_ep
         }
         console.log(char_stats)
-        return char_stats
-
-
+        return char_stats;
+        
 }
 
 function get_linechart_data(stats)
