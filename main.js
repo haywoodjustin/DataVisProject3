@@ -11,15 +11,18 @@ d3.csv("/data/data.csv")
         columns:[ //Define Table Columns
             {title:"Episode", field:"episode_num"},
             {title:"Character", field:"character"},
-            {title:"Dialog", field:"line", formatter: "textarea"},
-            // {title:"Discovery Year", field:"disc_year"},
-            // {title:"Star Type", field:"st_spectype"},
-            // {title:"Distance from Earth", field:"sy_dist"},
-            // {title:"Number of Stars", field:"sy_snum"},
-            // {title:"Habitability", field:"habitable"},
+            {title:"Dialog", field:"line", formatter: "textarea"}
         ],
     });
-} )
+ 
+
+
+    word_cloud = new Wordcloud({
+        parentElement: '#word_cloud',
+        containerHeight: 300,
+        containerWidth: 466.83
+    }, _data, "day", "Day of Week", "Total Calls", "Amount of Calls Per Day");
+})
 
 let characters = {
         Rick: {
