@@ -1,7 +1,28 @@
 d3.csv("/data/data.csv")
     .then(_data =>{
         console.log(_data)
-} )
+
+    table = new Tabulator("#table", {
+        // height: 205,
+        // responsiveLayout: true, 
+        layout: "fitDataStretch", 
+        data: _data, 
+        layout:"fitColumns", //fit columns to width of table (optional)
+        columns:[ //Define Table Columns
+            {title:"Episode", field:"episode_num"},
+            {title:"Character", field:"character"},
+            {title:"Dialog", field:"line", formatter: "textarea"}
+        ],
+    });
+ 
+
+
+    word_cloud = new Wordcloud({
+        parentElement: '#word_cloud',
+        containerHeight: 300,
+        containerWidth: 466.83
+    }, _data, "day", "Day of Week", "Total Calls", "Amount of Calls Per Day");
+})
 
 let characters = {
         Rick: {

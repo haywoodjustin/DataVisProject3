@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <link rel="icon" href="favicon.png">
+    <link rel="icon" href="CharacterImages/favicon.png">
+    <link href="https://unpkg.com/tabulator-tables@5.4.4/dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.4.4/dist/js/tabulator.min.js"></script>
     <title>Rick and Morty Dialog Visualization</title>
 </head>
 <body>
-    <script src="d3.v6.min.js"></script>
-    <script src="main.js"></script>
+    
+    <script src="js/d3.v6.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/wordle.js"></script>
+    
+    <!-- Load d3-cloud -->
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+
 
     <div class="vis-container">
         <div class="characters">
@@ -35,8 +43,8 @@
             <div class="character" id="Jessica" onClick="loadCharacter(id)">
                 <img src="/CharacterImages/jessica.png" alt="Jessica">
             </div>
-            <div class="character" id="Spaceship" onClick="loadCharacter(id)">
-                <img src="/CharacterImages/spaceship.png" alt="Spaceship">
+            <div class="character" id="Principal" onClick="loadCharacter(id)">
+                <img src="/CharacterImages/principal_vag.png" alt="Principal">
             </div>
             <div class="character" id="Poopybutthole" onClick="loadCharacter(id)">
                 <img src="/CharacterImages/poopybutthole.png" alt="Mr. Poopybutthole">
@@ -64,10 +72,20 @@
                         <img src="/CharacterImages/rick.png" alt="">
                         <div class="name">Rick Sanchez</div>
                     </div>
+                    <div class="char-stats">
+                        <div class="stats-text-area" id="table"></div>
+                        
+                    </div>
                 </div>
                 
             </div>
-        </div>
+            <div class="wordle">
+                <svg id="word_cloud"></svg>
+            </div>
+
+            <div class = "linechart">
+                <svg id="linechart"></svg>
+            </div>
     </div>
 </body>
 </html>
