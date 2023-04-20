@@ -1,3 +1,4 @@
+const NUM_EPISODES = 52;
 function get_char_stats(data, char_name)
 {
     
@@ -46,6 +47,28 @@ function get_char_stats(data, char_name)
 
 }
 
+function get_linechart_data(stats)
+{
+    let line_chart_data= [];
+
+    for(let i = 0; i <NUM_EPISODES; i++)
+    {
+        let temp = Object();
+
+        temp.x = i;
+        if(stats.lines_by_ep[i]==undefined)
+        {
+            temp.y = 0;
+        }
+        else
+        {
+            temp.y = stats.lines_by_ep[i];
+        }
+
+        line_chart_data.push(temp);
+    }
+console.log(line_chart_data);
+}
 let data; 
 let morty_stats, summer_stats, jerry_stats, beth_stats, rick_stats, jessica_stats, principal_stats, poopybutthole_stats, 
     goldenfold_stats, squanchy_stats, birdperson_stats, tammy_stats;
@@ -88,7 +111,8 @@ d3.csv("/data/data.csv")
     squanchy_stats = get_char_stats(data, "Squanchy");
     birdperson_stats = get_char_stats(data, "Birdperson");
     tammy_stats = get_char_stats(data, "Tammy");
-console.log(birdperson_stats);
+
+    console.log(get_linechart_data(squanchy_stats));
 })
 
 let characters = {
