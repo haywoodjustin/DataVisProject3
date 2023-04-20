@@ -24,7 +24,7 @@ class LineChart{
         .range([0,vis.width]);
 
     vis.yScale = d3.scaleLinear()
-        .range([vis.height,0])
+        .range([vis.height-40,0])
         .nice();
 
     vis.xAxis = d3.axisBottom(vis.xScale)
@@ -41,21 +41,39 @@ class LineChart{
     vis.svg = d3.select(vis.config.parentElement)
         .attr('width', vis.config.containerWidth)
         .attr('height', vis.config.containerHeight);
+    
 
     vis.chart = vis.svg.append('g')
     .attr('transform', `translate(${vis.config.margin.left},${vis.config.margin.top})`);
 
     vis.xAxisG = vis.chart.append('g')
         .attr('class', 'axis x-axis')
-        .attr('transform', `translate(0,${vis.height})`);
+        .attr('transform', `translate(0,${vis.height-40})`);
     
     
     // Append y-axis group
     vis.yAxisG = vis.chart.append('g')
     .attr('class', 'axis y-axis');
+
     vis.marks = vis.chart.append('g');
 
+    this.svg.append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "end")
+    .attr("x", vis.width)
+    .attr("y", vis.height +40)
+    .text("Episode Number");
 
+
+    this.svg.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .attr("y", 6)
+    .attr("dy", ".75em")
+    .attr("transform", "rotate(-90)")
+    .text("Lines per Episode");
+
+  
 }
 
 updateVis()
