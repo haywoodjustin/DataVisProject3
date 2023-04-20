@@ -81,9 +81,6 @@ d3.csv("/data/data.csv")
         data = _data;
         console.log(_data)
 
-    let wordDict = {}
-    let wordArr = []
-
     table = new Tabulator("#table", {
         // height: 205,
         // responsiveLayout: true, 
@@ -96,31 +93,6 @@ d3.csv("/data/data.csv")
             {title:"Dialog", field:"line", formatter: "textarea"}
         ],
     });
-
-    _data.forEach(d => {
-        temp_line = d.line.replace(/[.,;!?":'-]/g, "")
-        line_list = temp_line.split(" ")
-        line_list.forEach(l => {
-            l = l.toUpperCase()
-            if (wordDict[l] == undefined) {
-                wordDict[l] = 1
-            } else {
-                wordDict[l] += 1
-            }
-        })
-    })
-
-    for (const [key, value] of Object.entries(wordDict)) {
-        temp = Object()
-        temp.word = key
-        temp.count = value
-        wordArr.push(temp)
-      }
-      
-    
-    wordArr.sort((a, b) => b.count - a.count)
-
-    console.log(wordArr)
  
 
 
@@ -144,6 +116,9 @@ d3.csv("/data/data.csv")
     birdperson_stats = get_char_stats(data, "Birdperson");
     tammy_stats = get_char_stats(data, "Tammy");
 
+
+
+    
     linechart = new LineChart({ parentElement: '#linechart'}, get_linechart_data(morty_stats));
     linechart.updateVis();
 })
@@ -200,5 +175,5 @@ let characters = {
 }
 
 function loadCharacter(character){
-     console.log(character)
+     
 }

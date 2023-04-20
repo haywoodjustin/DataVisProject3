@@ -1,4 +1,3 @@
-import { get_char_stats } from "./data_wrangling";
 class LineChart{
       /**
    * Class constructor with basic chart configuration
@@ -8,7 +7,7 @@ class LineChart{
   constructor(_config, _data) {
     this.config = {
       parentElement: _config.parentElement,
-      containerWidth: _config.containerWidth || 800,
+      containerWidth: _config.containerWidth || 400,
       containerHeight: _config.containerHeight || 240,
       margin: _config.margin || {top: 25, right: 30, bottom: 30, left: 50}
     }
@@ -21,7 +20,7 @@ class LineChart{
     vis.width = vis.config.containerWidth - vis.config.margin.left - vis.config.margin.right;
     vis.height = vis.config.containerHeight - vis.config.margin.top - vis.config.margin.bottom;
 
-    vix.xScale = d3.scaleLinear()
+    vis.xScale = d3.scaleLinear()
         .range([0,vis.width]);
 
     vis.yScale = d3.scaleLinear()
@@ -54,6 +53,8 @@ class LineChart{
     // Append y-axis group
     vis.yAxisG = vis.chart.append('g')
     .attr('class', 'axis y-axis');
+    vis.marks = vis.chart.append('g');
+
 
 }
 
@@ -61,7 +62,7 @@ updateVis()
 {
     let vis = this;
     vis.xValue=d => d.x;
-    vix.yValue=d=>d.y;
+    vis.yValue=d=>d.y;
 
     vis.line = d3.line()
         .x(d=>vis.xScale(vis.xValue(d)))
