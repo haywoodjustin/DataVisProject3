@@ -111,7 +111,7 @@ body {
     display: flex;
 }
 
-#wordcloud {
+#word_cloud {
     width: 100%;
     height: 300px; 
     border-radius: 15px;
