@@ -111,7 +111,7 @@ body {
     display: flex;
 }
 
-#wordcloud {
+#word_cloud {
     width: 100%;
     height: 300px; 
     border-radius: 15px;
@@ -122,7 +122,12 @@ body {
 
 /*line chart*/
 
-.axis path{
+.linechart {
+    
+    background: white;
+    display: flex;
+}
+/* .axis path{
     stroke:black;
     stroke-width:2px ;
 }   
@@ -137,11 +142,29 @@ body {
     font-weight: bold;
     font-size: 14px;
     font-family:"Arial Black", Gadget, sans-serif;
-} 
+}  */
 
 
 /*line chart*/
-
+.axis line {
+    fill: none;
+    stroke: #c40e0e;
+    shape-rendering: crispEdges;
+  }
+  .axis text {
+    font-size: 13px;
+    fill: #6b6b6b;
+  }
+  .axis-title {
+    font-size: 13px;
+    fill: #888;
+  }
+  .x-axis .domain {
+    stroke: #8693a0;
+  }
+  .y-axis .domain {
+    display: none;
+  }
 .axis path{
     stroke:black;
     stroke-width:2px ;
@@ -154,12 +177,19 @@ body {
 
 .axis text{
     fill: black;
-    font-weight: bold;
+    
     font-size: 14px;
-    font-family:"Arial Black", Gadget, sans-serif;
 } 
 
 .legend text{
     fill:  black;
-    font-family:"Arial Black", Gadget, sans-serif;
 }
+
+
+.chart-area {
+    fill: #e9eff5;
+  }
+  .chart-line {
+    fill: none;
+    stroke: #517390;
+  }

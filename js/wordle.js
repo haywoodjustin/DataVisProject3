@@ -5,7 +5,7 @@ class Wordcloud {
      * @param {Object}
      * @param {Array}
      */
-    constructor(_config, _data, _property, _x_axis_label, _y_axis_label, _title) {
+    constructor(_config, _data, _words, _x_axis_label, _y_axis_label, _title) {
         // Configuration object with defaults
         this.config = {
             parentElement: _config.parentElement,
@@ -24,7 +24,7 @@ class Wordcloud {
         this.x_axis_label = _x_axis_label;
         this.y_axis_label = _y_axis_label;
         this.title = _title;
-        this.property = _property;
+        this.words = _words;
         this.initVis();
     }
 
@@ -33,7 +33,18 @@ class Wordcloud {
      */
     initVis() {
         let vis = this;
-        vis.myWords = [{word: "Running", size: "10"}, {word: "Surfing", size: "20"}, {word: "Climbing", size: "50"}, {word: "Kiting", size: "30"}, {word: "Sailing", size: "20"}, {word: "Snowboarding", size: "60"} ]
+
+        vis.myWords = []
+        let size = 85
+
+        for (var i = 0; i < 10; i ++) {
+            temp = Object()
+            temp.word = vis.words[i].word
+            temp.size = size
+            size -= 7
+            vis.myWords.push(temp)
+        }
+
 
 
         // Calculate inner chart size. Margin specifies the space around the actual chart.
@@ -78,9 +89,6 @@ class Wordcloud {
                   })
                   .text(function(d) { return d.text; });
         }
-
-
-        console.log("INIT")
 
     }
 
