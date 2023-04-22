@@ -1,4 +1,72 @@
 const NUM_EPISODES = 52;
+let characters;
+function set_characters()
+{
+    console.log('DFGSHFKL')
+     characters = {
+        Rick: {
+            name: "Rick Sanchez",
+            image: "/CharacterImages/rick.png",
+            info: get_char_stats(data, "Rick")
+        },
+        Morty: {
+            name: "Morty Smith",
+            image: "/CharacterImages/morty.png",
+            info: get_char_stats(data, "Morty")
+        },
+        Summer: {
+            name: "Summer Smith",
+            image: "/CharacterImages/summer.png",
+            info: get_char_stats(data, "Summer")
+        },
+        Beth: {
+            name: "Beth Smith",
+            image: "/CharacterImages/beth.png",
+            info: get_char_stats(data, "Beth")
+        },
+        Jerry: {
+            name: "Jerry Smith",
+            image: "/CharacterImages/jerry.png",
+            info: get_char_stats(data, "Jerry")
+        },
+        Jessica: {
+            name: "Jessica W.",
+            image: "/CharacterImages/jessica.png",
+            info: get_char_stats(data, "Jessica")
+        },
+        PrincipalVagina: {
+            name: "Principal Vagina",
+            image: "/CharacterImages/principal_vag.png",
+            info: get_char_stats(data, "Principal Vagina")
+        },
+        Poopybutthole: {
+            name: "Mr. Poopybutthole",
+            image: "/CharacterImages/poopybutthole.png",
+            info: get_char_stats(data, "Mr. Poopybutthole")
+        },
+        Goldenfold: {
+            name: "Mr. Goldenfold",
+            image: "/CharacterImages/goldenfold.png",
+            info: get_char_stats(data, "Mr. Goldenfold")
+        },
+        Squanchy: {
+            name: "Squanchy",
+            image: "/CharacterImages/squanchy.png",
+            info: get_char_stats(data, "Squanchy")
+        },
+        Birdperson: {
+            name: "Birdperson",
+            image: "/CharacterImages/birdperson.png",
+            info: get_char_stats(data, "Birdperson")
+        },
+        Tammy: {
+            name: "Tammy Gueterman",
+            image: "/CharacterImages/tammy.png",
+            info: get_char_stats(data, "Tammy")
+        },
+}
+
+}
 function get_char_stats(data, char_name)
 {
     
@@ -83,7 +151,6 @@ let data, linechart;
 let all_character_stats; 
 let morty_stats, summer_stats, jerry_stats, beth_stats, rick_stats, jessica_stats, principal_stats, poopybutthole_stats, 
     goldenfold_stats, squanchy_stats, birdperson_stats, tammy_stats;
-
 d3.csv("/data/data.csv")
     .then(_data =>{
         data = _data;
@@ -136,7 +203,7 @@ d3.csv("/data/data.csv")
 
     console.log(wordArr)
  
-
+    set_characters();
 
     word_cloud = new Wordcloud({
         parentElement: '#word_cloud',
@@ -177,73 +244,13 @@ d3.csv("/data/data.csv")
     linechart.updateVis();
 })
 
-let characters = {
-        Rick: {
-            name: "Rick Sanchez",
-            image: "/CharacterImages/rick.png",
-            info: get_char_stats(data, "Rick")
-        },
-        Morty: {
-            name: "Morty Smith",
-            image: "/CharacterImages/morty.png",
-            info: get_char_stats(data, "Morty")
-        },
-        Summer: {
-            name: "Summer Smith",
-            image: "/CharacterImages/summer.png",
-            info: get_char_stats(data, "Summer")
-        },
-        Beth: {
-            name: "Beth Smith",
-            image: "/CharacterImages/beth.png",
-            info: get_char_stats(data, "Beth")
-        },
-        Jerry: {
-            name: "Jerry Smith",
-            image: "/CharacterImages/jerry.png",
-            info: get_char_stats(data, "Jerry")
-        },
-        Jessica: {
-            name: "Jessica W.",
-            image: "/CharacterImages/jessica.png",
-            info: get_char_stats(data, "Jessica")
-        },
-        Spaceship: {
-            name: "Principal Vagina",
-            image: "/CharacterImages/principal_vag.png",
-            info: get_char_stats(data, "Principal Vagina")
-        },
-        Poopybutthole: {
-            name: "Mr. Poopybutthole",
-            image: "/CharacterImages/poopybutthole.png",
-            info: get_char_stats(data, "Mr. Poopybutthole")
-        },
-        Goldenfold: {
-            name: "Mr. Goldenfold",
-            image: "/CharacterImages/goldenfold.png",
-            info: get_char_stats(data, "Mr. Goldenfold")
-        },
-        Squanchy: {
-            name: "Squanchy",
-            image: "/CharacterImages/squanchy.png",
-            info: get_char_stats(data, "Squanchy")
-        },
-        Birdperson: {
-            name: "Birdperson",
-            image: "/CharacterImages/birdperson.png",
-            info: get_char_stats(data, "Birdperson")
-        },
-        Tammy: {
-            name: "Tammy Gueterman",
-            image: "/CharacterImages/tammy.png",
-            info: get_char_stats(data, "Tammy")
-        },
-}
 
 function loadCharacter(character){
     let temp_data = get_linechart_data(all_character_stats[character]);
-    //console.log(all_character_stats[character]);
+    document.getElementById("charimg").src = characters[character].image;
+    document.getElementById("charname").innerHTML= characters[character].name;
+    console.log(all_character_stats[character]);
     linechart.data = temp_data;
     linechart.updateVis();
-    console.log(character);
+    console.log(characters[character]);
 }
