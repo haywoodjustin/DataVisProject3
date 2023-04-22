@@ -68,7 +68,8 @@ class LineChart{
     this.svg.append("text")
     .attr("class", "y label")
     .attr("text-anchor", "end")
-    .attr("y", 6)
+    .attr("y", 5)
+    .attr("x", -50)
     .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
     .text("Lines per Episode");

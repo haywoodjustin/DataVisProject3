@@ -76,7 +76,7 @@ function get_char_stats(data, char_name)
     let lines_by_ep = {};
     
     let episode_counter, season_counter =0;
-
+console.log(data)
         data.forEach(d => {
            if(d.character == char_name)
            {
@@ -110,6 +110,7 @@ function get_char_stats(data, char_name)
             lines_by_ep: lines_by_ep
         }
         //console.log(char_stats)
+        
         return char_stats;
         
 }
@@ -160,7 +161,7 @@ d3.csv("/data/data.csv")
     let wordArr = []
 
     table = new Tabulator("#table", {
-        // height: 205,
+         height: 205,
         // responsiveLayout: true, 
         layout: "fitDataStretch", 
         data: _data, 
@@ -249,8 +250,11 @@ function loadCharacter(character){
     let temp_data = get_linechart_data(all_character_stats[character]);
     document.getElementById("charimg").src = characters[character].image;
     document.getElementById("charname").innerHTML= characters[character].name;
+    document.getElementById("random").innerHTML = "Episodes Appeared In: " + all_character_stats[character].total_ep;
+    document.getElementById("seasons").innerHTML = "Seasons Appeared In: " + all_character_stats[character].total_seasons;
+    document.getElementById("lines").innerHTML = "Total Lines: " + all_character_stats[character].total_lines;
+
     console.log(all_character_stats[character]);
     linechart.data = temp_data;
     linechart.updateVis();
-    console.log(characters[character]);
 }
