@@ -103,11 +103,11 @@ class Wordcloud {
 
         function draw(words) {
             
-            vis.chart.append("g")
+            vis.chart.join("g")
                 .attr("transform", "translate(" + vis.layout.size()[0] / 2 + "," + vis.layout.size()[1] / 2 + ")")
                 .selectAll("text")
                 .data(words)
-                .enter().append("text")
+                .join("text")
                 .style("font-size", function(d) {
                     return d.size;
                 })
@@ -119,7 +119,8 @@ class Wordcloud {
                 })
                 .text(function(d) {
                     return d.text;
-                });
+                })
+                ;
         }
     }
 

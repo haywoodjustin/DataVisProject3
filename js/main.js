@@ -2,6 +2,7 @@ const NUM_EPISODES = 52;
 let characters;
 let data, linechart; 
 let all_character_stats; 
+let global_word_arr;
 let morty_stats, summer_stats, jerry_stats, beth_stats, rick_stats, jessica_stats, principal_stats, poopybutthole_stats, goldenfold_stats, squanchy_stats, birdperson_stats, tammy_stats;
 
 
@@ -25,6 +26,7 @@ d3.csv("/data/data.csv")
 
 
     let wordArr = formatWords(_data)
+    global_word_arr = wordArr
 
     set_characters();
 
@@ -249,26 +251,34 @@ function formatWords(words) {
 }
 
 function loadCharacter(character){
-    let temp_data = get_linechart_data(all_character_stats[character]);
-    let temp_words = []
-    document.getElementById("charimg").src = characters[character].image;
-    document.getElementById("charname").innerHTML= characters[character].name;
-    document.getElementById("random").innerHTML = "Episodes Appeared In: " + all_character_stats[character].total_ep;
-    document.getElementById("seasons").innerHTML = "Seasons Appeared In: " + all_character_stats[character].total_seasons;
-    document.getElementById("lines").innerHTML = "Total Lines: " + all_character_stats[character].total_lines;
+    if (character == "all") {
+        linechart.data = get_linechart_data(all_character_stats["Morty"])
+        console.log(global_word_arr)
+        word_cloud.words = global_word_arr
+    } else {
+        let temp_data = get_linechart_data(all_character_stats[character]);
+        let temp_words = []
+        document.getElementById("charimg").src = characters[character].image;
+        document.getElementById("charname").innerHTML= characters[character].name;
+        document.getElementById("random").innerHTML = "Episodes Appeared In: " + all_character_stats[character].total_ep;
+        document.getElementById("seasons").innerHTML = "Seasons Appeared In: " + all_character_stats[character].total_seasons;
+        document.getElementById("lines").innerHTML = "Total Lines: " + all_character_stats[character].total_lines;
 
-    console.log(all_character_stats[character]);
-    data.forEach(d => {
-        if (d.character == character) {
-            temp_words.push(d)
-        }
-    })
+        
 
-    console.log(temp_words)
-    let updated_words = formatWords(temp_words)
-    word_cloud.words = updated_words
+        linechart.data = temp_data;
+
+        data.forEach(d => {
+            if (d.character == character) {
+                temp_words.push(d)
+            }
+        })
+
+        console.log(temp_words)
+        let updated_words = formatWords(temp_words)
+        word_cloud.words = updated_words
+    }
+
     word_cloud.updateVis()
-
-    linechart.data = temp_data;
     linechart.updateVis();
 }
