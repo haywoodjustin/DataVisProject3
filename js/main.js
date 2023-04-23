@@ -278,7 +278,6 @@ function loadCharacter(character){
 
         let updated_words = formatWords(temp_words)
         word_cloud.words = updated_words
-        console.log(character)
         table.setFilter("character", "=", character)
 
     }
