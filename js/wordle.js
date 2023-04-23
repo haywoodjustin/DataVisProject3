@@ -59,13 +59,13 @@ class Wordcloud {
 
 
         vis.myWords = []
-        let size = 85
+        let size = 70
 
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 15; i++) {
             temp = Object()
             temp.word = vis.words[i].word
             temp.size = size
-            size -= 7
+            size -= 5
             vis.myWords.push(temp)
         }
 
@@ -102,6 +102,7 @@ class Wordcloud {
 
 
         function draw(words) {
+            
             vis.chart.append("g")
                 .attr("transform", "translate(" + vis.layout.size()[0] / 2 + "," + vis.layout.size()[1] / 2 + ")")
                 .selectAll("text")
