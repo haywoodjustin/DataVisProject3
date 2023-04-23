@@ -37,6 +37,13 @@ d3.csv("/data/data.csv")
     }, _data, wordArr);
     word_cloud.updateVis()
 
+    barchart = new Barchart({
+        parentElement: '#barchart1',
+        containerWidth: 925
+    }, data, "season", "Amount of Lines", "Season Number", "Lines Per Season");
+    barchart.updateVis();
+    
+
     all_character_stats = 
     {
         All: get_char_stats(data,"All"), 
@@ -67,7 +74,7 @@ function set_characters()
      characters = {
         All: {
             name: "All",
-            image: "/CharacterImages/allcharacters.png",
+            image: "/CharacterImages/allcharacters.jpg",
             info: get_char_stats(data, "All")
         },
         Rick: {
@@ -255,33 +262,46 @@ function formatWords(words) {
 function loadCharacter(character){
     if (character == "all") {
         linechart.data = get_linechart_data(all_character_stats["Morty"])
+        barchart.data = data
         console.log(global_word_arr)
         word_cloud.words = global_word_arr
+
+        document.getElementById("random").innerHTML = "Episodes Appeared In: " + "35"
+        document.getElementById("seasons").innerHTML = "Seasons Appeared In: " + "6";
+        document.getElementById("lines").innerHTML = "Total Lines: " + "7684";
+
+        document.getElementById("charimg").src = characters["All"].image;
+
+        table.clearFilter()
+
+    
     } else {
         let temp_data = get_linechart_data(all_character_stats[character]);
+        let temp_barchart_data = []
         let temp_words = []
+        console.log(characters)
         document.getElementById("charimg").src = characters[character].image;
         document.getElementById("charname").innerHTML= characters[character].name;
         document.getElementById("random").innerHTML = "Episodes Appeared In: " + all_character_stats[character].total_ep;
         document.getElementById("seasons").innerHTML = "Seasons Appeared In: " + all_character_stats[character].total_seasons;
         document.getElementById("lines").innerHTML = "Total Lines: " + all_character_stats[character].total_lines;
 
-        
-
-        linechart.data = temp_data;
-
         data.forEach(d => {
             if (d.character == character) {
                 temp_words.push(d)
+                temp_barchart_data.push(d)
             }
         })
 
+        linechart.data = temp_data;
+        barchart.data = temp_barchart_data
         let updated_words = formatWords(temp_words)
         word_cloud.words = updated_words
         table.setFilter("character", "=", character)
 
     }
 
+    barchart.updateVis()
     word_cloud.updateVis()
     linechart.updateVis();
 }
