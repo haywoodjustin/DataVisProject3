@@ -127,25 +127,7 @@ body {
     background: white;
     display: flex;
 }
-/* .axis path{
-    stroke:black;
-    stroke-width:2px ;
-}   
 
-.axis line{
-    stroke: black;
-    stroke-width: 1.5px;
-} 
-
-.axis text{
-    fill: black;
-    font-weight: bold;
-    font-size: 14px;
-    font-family:"Arial Black", Gadget, sans-serif;
-}  */
-
-
-/*line chart*/
 .axis line {
     fill: none;
     stroke: #c40e0e;
@@ -192,4 +174,37 @@ body {
   .chart-line {
     fill: none;
     stroke: #517390;
+  }
+
+/* barchart */ 
+
+.barchart {
+    width: 50%; 
+    height: 100%;
+    background-color: #f5f5f5;
+    margin: auto
+    /* border-radius: 5%; */
+  }
+  
+  .bar {
+    fill: steelblue;
+    shape-rendering: crispEdges;
+  }
+  .bar:hover {
+    stroke: #a52020;
+    stroke-width: 3;
+  }
+  .axis text {
+    fill: #666;
+    font-size: 12px;
+  }
+  .axis-title {
+    font-size: 16px;
+  }
+  .axis path {
+    shape-rendering: crispEdges;
+    stroke: #888;
+  }
+  .y-axis .domain {
+    stroke: #9ca086;
   }
