@@ -250,6 +250,8 @@ function formatWords(words) {
 
 }
 
+
+
 function loadCharacter(character){
     if (character == "all") {
         linechart.data = get_linechart_data(all_character_stats["Morty"])
@@ -274,9 +276,11 @@ function loadCharacter(character){
             }
         })
 
-        console.log(temp_words)
         let updated_words = formatWords(temp_words)
         word_cloud.words = updated_words
+        console.log(character)
+        table.setFilter("character", "=", character)
+
     }
 
     word_cloud.updateVis()

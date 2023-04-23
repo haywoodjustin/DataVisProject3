@@ -55,8 +55,6 @@ class Wordcloud {
         let vis = this;
 
         vis.words.sort((a, b) => b.count - a.count)
-        console.log(vis.words)
-
 
         vis.myWords = []
         let size = 70
