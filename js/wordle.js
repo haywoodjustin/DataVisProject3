@@ -5,12 +5,12 @@ class Wordcloud {
      * @param {Object}
      * @param {Array}
      */
-    constructor(_config, _data, _words, _x_axis_label, _y_axis_label, _title) {
+    constructor(_config, _data, _words) {
         // Configuration object with defaults
         this.config = {
             parentElement: _config.parentElement,
             containerWidth: _config.containerWidth || window.innerWidth, //425,
-            containerHeight: _config.containerHeight || window.innerHeight/2, //410,
+            containerHeight: _config.containerHeight || window.innerHeight / 2, //410,
             margin: _config.margin || {
                 top: 10,
                 right: 10,
@@ -21,9 +21,6 @@ class Wordcloud {
             tooltipPadding: _config.tooltipPadding || 15
         }
         this.data = _data;
-        this.x_axis_label = _x_axis_label;
-        this.y_axis_label = _y_axis_label;
-        this.title = _title;
         this.words = _words;
         this.initVis();
     }
@@ -33,17 +30,6 @@ class Wordcloud {
      */
     initVis() {
         let vis = this;
-
-        vis.myWords = []
-        let size = 85
-
-        for (var i = 0; i < 10; i ++) {
-            temp = Object()
-            temp.word = vis.words[i].word
-            temp.size = size
-            size -= 7
-            vis.myWords.push(temp)
-        }
 
 
 
@@ -60,16 +46,57 @@ class Wordcloud {
         vis.chart = vis.svg.append('g')
             .attr('transform', `translate(${vis.config.margin.left},${vis.config.margin.top})`);
 
-            
+
+
+
+    }
+
+    updateVis() {
+        let vis = this;
+
+        vis.words.sort((a, b) => b.count - a.count)
+        console.log(vis.words)
+
+
+        vis.myWords = []
+        let size = 85
+
+        for (var i = 0; i < 10; i++) {
+            temp = Object()
+            temp.word = vis.words[i].word
+            temp.size = size
+            size -= 7
+            vis.myWords.push(temp)
+        }
+
+
+
+        vis.renderVis()
+
+    }
+
+    renderVis() {
+
+        let vis = this;
+
         // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
         // Wordcloud features that are different from one word to the other must be here
         vis.layout = d3.layout.cloud()
-        .size([vis.width, vis.height])
-        .words(vis.myWords.map(function(d) { return {text: d.word, size:d.size}; }))
-        .padding(5)        //space between words
-        .rotate(function() { return ~~(Math.random() * 2) * 90; })
-        .fontSize(function(d) { return d.size; })      // font size of words
-        .on("end", draw);
+            .size([vis.width, vis.height])
+            .words(vis.myWords.map(function(d) {
+                return {
+                    text: d.word,
+                    size: d.size
+                };
+            }))
+            .padding(5) //space between words
+            .rotate(function() {
+                return ~~(Math.random() * 2) * 90;
+            })
+            .fontSize(function(d) {
+                return d.size;
+            }) // font size of words
+            .on("end", draw);
 
         vis.layout.start();
 
@@ -78,18 +105,21 @@ class Wordcloud {
             vis.chart.append("g")
                 .attr("transform", "translate(" + vis.layout.size()[0] / 2 + "," + vis.layout.size()[1] / 2 + ")")
                 .selectAll("text")
-                  .data(words)
+                .data(words)
                 .enter().append("text")
-                  .style("font-size", function(d) { return d.size; })
-                  .style("fill", "#69b3a2")
-                  .attr("text-anchor", "middle")
-                  .style("font-family", "Impact")
-                  .attr("transform", function(d) {
+                .style("font-size", function(d) {
+                    return d.size;
+                })
+                .style("fill", "#69b3a2")
+                .attr("text-anchor", "middle")
+                .style("font-family", "Impact")
+                .attr("transform", function(d) {
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-                  })
-                  .text(function(d) { return d.text; });
+                })
+                .text(function(d) {
+                    return d.text;
+                });
         }
-
     }
 
 }
