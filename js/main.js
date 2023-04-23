@@ -1,9 +1,75 @@
 const NUM_EPISODES = 52;
 let characters;
+let data, linechart; 
+let all_character_stats; 
+let global_word_arr;
+let morty_stats, summer_stats, jerry_stats, beth_stats, rick_stats, jessica_stats, principal_stats, poopybutthole_stats, goldenfold_stats, squanchy_stats, birdperson_stats, tammy_stats;
+
+
+d3.csv("/data/data.csv")
+    .then(_data =>{
+        data = _data;
+        console.log(_data)
+
+    table = new Tabulator("#table", {
+         height: 205,
+        // responsiveLayout: true, 
+        layout: "fitDataStretch", 
+        data: _data, 
+        layout:"fitColumns", //fit columns to width of table (optional)
+        columns:[ //Define Table Columns
+            {title:"Episode", field:"episode_num"},
+            {title:"Character", field:"character"},
+            {title:"Dialog", field:"line", formatter: "textarea"}
+        ],
+    });
+
+
+    let wordArr = formatWords(_data)
+    global_word_arr = wordArr
+
+    set_characters();
+
+    word_cloud = new Wordcloud({
+        parentElement: '#word_cloud',
+        containerHeight: 300,
+        containerWidth: 466.83
+    }, _data, wordArr);
+    word_cloud.updateVis()
+
+    all_character_stats = 
+    {
+        All: get_char_stats(data,"All"), 
+        Morty: get_char_stats(data,"Morty"), 
+        Rick: get_char_stats(data, "Rick"),
+        Summer: get_char_stats(data, "Summer"),
+        Jerry: get_char_stats(data, "Jerry"),
+        Beth: get_char_stats(data, "Beth"),
+        Jessica: get_char_stats(data, "Jessica"),
+        PrincipalVagina: get_char_stats(data, "Principal Vagina"),
+        MrPoopybutthole: get_char_stats(data, "Mr. Poopybutthole"),
+        Goldenfold: get_char_stats(data, "Mr.Goldenfold"),
+        Squanchy: get_char_stats(data, "Squanchy"),
+        Birdperson: get_char_stats(data, "Birdperson"),
+        Tammy: get_char_stats(data, "Tammy")
+    }
+    
+
+
+    linechart = new LineChart({ parentElement: '#linechart'}, get_linechart_data(all_character_stats["Morty"]));
+    linechart.updateVis();
+})
+
+
 function set_characters()
 {
-    console.log('DFGSHFKL')
+
      characters = {
+        All: {
+            name: "All",
+            image: "/CharacterImages/allcharacters.png",
+            info: get_char_stats(data, "All")
+        },
         Rick: {
             name: "Rick Sanchez",
             image: "/CharacterImages/rick.png",
@@ -76,8 +142,10 @@ function get_char_stats(data, char_name)
     let lines_by_ep = {};
     
     let episode_counter, season_counter =0;
-console.log(data)
         data.forEach(d => {
+           if (char_name == "All") {
+            total_lines += 1
+           }
            if(d.character == char_name)
            {
             //console.log(d)
@@ -147,35 +215,14 @@ function getStopWords() {
     return stop_words
 }
 
-
-let data, linechart; 
-let all_character_stats; 
-let morty_stats, summer_stats, jerry_stats, beth_stats, rick_stats, jessica_stats, principal_stats, poopybutthole_stats, 
-    goldenfold_stats, squanchy_stats, birdperson_stats, tammy_stats;
-d3.csv("/data/data.csv")
-    .then(_data =>{
-        data = _data;
-        console.log(_data)
+function formatWords(words) {
 
     let wordDict = {}
     let wordArr = []
-
-    table = new Tabulator("#table", {
-         height: 205,
-        // responsiveLayout: true, 
-        layout: "fitDataStretch", 
-        data: _data, 
-        layout:"fitColumns", //fit columns to width of table (optional)
-        columns:[ //Define Table Columns
-            {title:"Episode", field:"episode_num"},
-            {title:"Character", field:"character"},
-            {title:"Dialog", field:"line", formatter: "textarea"}
-        ],
-    });
-
+    
     stop_words = getStopWords()
 
-    _data.forEach(d => {
+    words.forEach(d => {
         temp_line = d.line.replace(/[.,;!?":'-]/g, "")
         line_list = temp_line.split(" ")
         line_list.forEach(l => {
@@ -198,63 +245,40 @@ d3.csv("/data/data.csv")
         temp.count = value
         wordArr.push(temp)
       }
-      
-    
-    wordArr.sort((a, b) => b.count - a.count)
 
-    console.log(wordArr)
- 
-    set_characters();
+      return wordArr
 
-    word_cloud = new Wordcloud({
-        parentElement: '#word_cloud',
-        containerHeight: 300,
-        containerWidth: 466.83
-    }, _data, wordArr, "Day of Week", "Total Calls", "Amount of Calls Per Day");
-
-    all_character_stats = 
-    {
-        Morty: get_char_stats(data,"Morty"), 
-        Rick: get_char_stats(data, "Rick"),
-        Summer: get_char_stats(data, "Summer"),
-        Jerry: get_char_stats(data, "Jerry"),
-        Beth: get_char_stats(data, "Beth"),
-        Jessica: get_char_stats(data, "Jessica"),
-        PrincipalVagina: get_char_stats(data, "Principal Vagina"),
-        MrPoopybutthole: get_char_stats(data, "Mr. Poopybutthole"),
-        Goldenfold: get_char_stats(data, "Mr.Goldenfold"),
-        Squanchy: get_char_stats(data, "Squanchy"),
-        Birdperson: get_char_stats(data, "Birdperson"),
-        Tammy: get_char_stats(data, "Tammy")
-    }
-    
-    // morty_stats = get_char_stats(data,"Morty");
-    // summer_stats = get_char_stats(data, "Summer");
-    // jerry_stats = get_char_stats(data, "Jerry");
-    // beth_stats = get_char_stats(data, "Beth");
-    // rick_stats = get_char_stats(data, "Rick");
-    // jessica_stats = get_char_stats(data, "Jessica");
-    // principal_stats = get_char_stats(data, "Principal Vagina");
-    // poopybutthole_stats = get_char_stats(data, "Mr.Poopybutthole")
-    // goldenfold_stats = get_char_stats(data, "Mr. Goldenfold");
-    // squanchy_stats = get_char_stats(data, "Squanchy");
-    // birdperson_stats = get_char_stats(data, "Birdperson");
-    // tammy_stats = get_char_stats(data, "Tammy");
-
-    linechart = new LineChart({ parentElement: '#linechart'}, get_linechart_data(all_character_stats["Morty"]));
-    linechart.updateVis();
-})
-
+}
 
 function loadCharacter(character){
-    let temp_data = get_linechart_data(all_character_stats[character]);
-    document.getElementById("charimg").src = characters[character].image;
-    document.getElementById("charname").innerHTML= characters[character].name;
-    document.getElementById("random").innerHTML = "Episodes Appeared In: " + all_character_stats[character].total_ep;
-    document.getElementById("seasons").innerHTML = "Seasons Appeared In: " + all_character_stats[character].total_seasons;
-    document.getElementById("lines").innerHTML = "Total Lines: " + all_character_stats[character].total_lines;
+    if (character == "all") {
+        linechart.data = get_linechart_data(all_character_stats["Morty"])
+        console.log(global_word_arr)
+        word_cloud.words = global_word_arr
+    } else {
+        let temp_data = get_linechart_data(all_character_stats[character]);
+        let temp_words = []
+        document.getElementById("charimg").src = characters[character].image;
+        document.getElementById("charname").innerHTML= characters[character].name;
+        document.getElementById("random").innerHTML = "Episodes Appeared In: " + all_character_stats[character].total_ep;
+        document.getElementById("seasons").innerHTML = "Seasons Appeared In: " + all_character_stats[character].total_seasons;
+        document.getElementById("lines").innerHTML = "Total Lines: " + all_character_stats[character].total_lines;
 
-    console.log(all_character_stats[character]);
-    linechart.data = temp_data;
+        
+
+        linechart.data = temp_data;
+
+        data.forEach(d => {
+            if (d.character == character) {
+                temp_words.push(d)
+            }
+        })
+
+        console.log(temp_words)
+        let updated_words = formatWords(temp_words)
+        word_cloud.words = updated_words
+    }
+
+    word_cloud.updateVis()
     linechart.updateVis();
 }
